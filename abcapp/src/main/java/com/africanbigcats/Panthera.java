@@ -1,46 +1,54 @@
 package com.africanbigcats;
 
+import java.util.Random;
+
 /*
- * Panthera base class that simulates GPS information
+ * Panthera class derived from PantheraGPS.
+ * Represents a general category for panthera species.
  */
 public class Panthera extends PantheraGPS {
 
-    /*
-        TIP:
-        Students will need to add additional attributes and methods to complete this classes
-        implementation.
-     */
+    private int weight;
+    private Random speedRandom;
 
-    // constructor
+    // Constructor
     public Panthera(String name) {
-
-        // call the super-class (parent) to instatiate it
         super(name);
-
-        // initialize attributes
         this.setSpecies("panthera");
 
+        // Initialize the weight attribute with a random value between 10 and 600 pounds
+        this.weight = (int) (Math.random() * 590) + 10;
+
+        // Initialize the Random instance for speed generation
+        this.speedRandom = new Random();
     }
 
-    // serializes attributes into a string
-    @Override // override superclass method
+    // Method to simulate the panthera's roar
+    public void roar() {
+        System.out.println("Rrrrrrrrroooooooaaaaarrrrr!");
+    }
+
+    // Method to get the current speed, generated as a random value between 0 and
+    // maxSpeed
+    public double speed() {
+        return speedRandom.nextFloat() * maxSpeed; // Random speed from 0 to 50 mph
+    }
+
+    // Getter for weight attribute
+    public int getWeight() {
+        return weight;
+    }
+
+    // Override toString method to include additional attributes in JSON format
+    @Override
     public String toString() {
-        String s;
-
-        // since the object is complex, we return a JSON formatted string
-        s = "{ ";
-        s += "name: " + this.name();
-        s += ", ";
-        s += "species: " + this.species();
-        s += ", ";
-        s += "longitude: " + this.longitude();
-        s += ", ";
-        s += "latitude: " + this.latitude();
-        s += " }";
-
-        return s;
-
+        return "{ " +
+                "name: " + this.name() +
+                ", species: " + this.species() +
+                ", longitude: " + this.longitude() +
+                ", latitude: " + this.latitude() +
+                ", weight: " + this.getWeight() +
+                ", speed: " + this.speed() +
+                " }";
     }
-
-
 }
