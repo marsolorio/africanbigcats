@@ -1,45 +1,18 @@
 package com.africanbigcats;
 
-/*
- * Panthera base class that simulates GPS information
- */
 public class Tiger extends Panthera {
-
-    // constructor
     public Tiger(String name) {
-
-        // call the super-class (parent) to instatiate it
         super(name);
-
-        // initialize attributes
         this.setSpecies("tiger");
-
     }
 
-    // serializes attributes into a string
-    @Override // override superclass method
+    @Override
     public String toString() {
-        String s;
-
-        // since the object is complex, we return a JSON formatted string
-        s = "{ ";
-        s += "name: " + name();
-        s += ", ";
-        s += "species: " + species();
-        s += ", ";
-        s += "longitude: " + longitude();
-        s += ", ";
-        s += "latitude: " + latitude();
-        s += ", ";
-        s += "fur: " + fur();
-        s += " }";
-
-        return s;
-
+        return "{ name: " + name() + ", species: " + species() + ", longitude: " + longitude() + ", latitude: "
+                + latitude() + ", fur: " + fur() + " }";
     }
 
     public String fur() {
         return "stripes";
     }
-
 }
