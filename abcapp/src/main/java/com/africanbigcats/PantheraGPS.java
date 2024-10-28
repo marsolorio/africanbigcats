@@ -3,17 +3,15 @@ package com.africanbigcats;
 import java.util.Random;
 
 /*
- * Panthera base class that simulates GPS information
+ * PantheraGPS base class that simulates GPS information.
  */
 public class PantheraGPS {
 
-    // constants
     private final Integer maxLongitude = 1000;
     private final Integer maxLatitude = 1000;
     protected final float minSpeed = 0f;
     protected final float maxSpeed = 50.0f;
 
-    // attributes
     private String name;
     private String species;
 
@@ -23,45 +21,24 @@ public class PantheraGPS {
     private Random longitudeRandom;
     private Random latitudeRandom;
 
-    // constructor
     public PantheraGPS(String name) {
-
-        // initialize attributes
         this.name = name;
         this.species = "pantheraGPS";
 
-        // seed the random number generators for repeatable results
         this.longitudeRandom = new Random();
         this.longitudeRandom.setSeed(this.seed(name + "longitude"));
         this.latitudeRandom = new Random();
         this.latitudeRandom.setSeed(this.seed(name + "latitude"));
 
-        // move the panthera into it's initial position
         this.longitude = longitudeRandom.nextFloat() * maxLongitude;
         this.latitude = latitudeRandom.nextFloat() * maxLatitude;
-
     }
 
-    // serializes attributes into a string
     public String toString() {
-        String s;
-
-        // since the object is complex, we return a JSON formatted string
-        s = "{ ";
-        s += "name: " + name;
-        s += ", ";
-        s += "species: " + this.species();
-        s += ", ";
-        s += "longitude: " + this.longitude();
-        s += ", ";
-        s += "latitude: " + this.latitude();
-        s += " }";
-
-        return s;
-
+        return "{ name: " + name + ", species: " + this.species + ", longitude: " + this.longitude + ", latitude: "
+                + this.latitude + " }";
     }
 
-    // getters
     public String name() {
         return this.name;
     }
@@ -74,15 +51,11 @@ public class PantheraGPS {
         this.species = species;
     }
 
-    // make a seed, based on the name
     private Integer seed(String s) {
         Integer seed = 0;
-
-        for (Integer i = 0; i < s.length() ; i++) {
-            char ch = s.charAt(i);
-            seed += (int) ch;
+        for (int i = 0; i < s.length(); i++) {
+            seed += s.charAt(i);
         }
-
         return seed;
     }
 
@@ -91,15 +64,11 @@ public class PantheraGPS {
         this.latitude += latitudeRandom.nextFloat() * maxSpeed;
     }
 
-    // longitude of the panthera
     public Float longitude() {
         return longitude;
     }
 
-    // latitude of the panthera
     public Float latitude() {
         return latitude;
     }
-
-
 }
