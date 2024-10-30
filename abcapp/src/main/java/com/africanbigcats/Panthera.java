@@ -8,47 +8,73 @@ import java.util.Random;
  */
 public class Panthera extends PantheraGPS {
 
+    private String name;
+    private String species;
     private int weight;
     private Random speedRandom;
 
-    // Constructor
-    public Panthera(String name) {
+    /*
+     * Constructor for Panthera.
+     * Initializes the name, species, and assigns a random weight between 10 and 600
+     * pounds.
+     * Also initializes Random instance for generating random speed values.
+     */
+    public Panthera(String name, String species) {
         super(name);
-        this.setSpecies("panthera");
-
-        // Initialize the weight attribute with a random value between 10 and 600 pounds
-        this.weight = (int) (Math.random() * 590) + 10;
-
-        // Initialize the Random instance for speed generation
+        this.name = name;
+        this.species = species;
+        this.weight = new Random().nextInt(591) + 10;
         this.speedRandom = new Random();
     }
 
-    // Method to simulate the panthera's roar
+    /*
+     * Simulates the panthera's roar sound.
+     */
     public void roar() {
         System.out.println("Rrrrrrrrroooooooaaaaarrrrr!");
     }
 
-    // Method to get the current speed, generated as a random value between 0 and
-    // maxSpeed
+    /*
+     * Returns the current speed as a random value between 0 and maxSpeed.
+     */
     public double speed() {
-        return speedRandom.nextFloat() * maxSpeed; // Random speed from 0 to 50 mph
+        return speedRandom.nextFloat() * maxSpeed;
     }
 
-    // Getter for weight attribute
-    public int getWeight() {
+    /*
+     * Getter for the panthera's name.
+     */
+    public String name() {
+        return name;
+    }
+
+    /*
+     * Getter for the species of the panthera.
+     */
+    public String species() {
+        return species;
+    }
+
+    /*
+     * Getter for the weight of the panthera.
+     */
+    public int weight() {
         return weight;
     }
 
-    // Override toString method to include additional attributes in JSON format
+    /*
+     * Provides a JSON-formatted string representation of the panthera's details,
+     * including name, species, longitude, latitude, weight, and speed.
+     */
     @Override
     public String toString() {
         return "{ " +
-                "name: " + this.name() +
-                ", species: " + this.species() +
-                ", longitude: " + this.longitude() +
-                ", latitude: " + this.latitude() +
-                ", weight: " + this.getWeight() +
-                ", speed: " + this.speed() +
+                "name: " + name +
+                ", species: " + species +
+                ", longitude: " + longitude() +
+                ", latitude: " + latitude() +
+                ", weight: " + weight + " lbs" +
+                ", speed: " + speed() + " mph" +
                 " }";
     }
 }
