@@ -7,7 +7,6 @@ import java.util.Random;
  * Represents a general category for panthera species.
  */
 public class Panthera extends PantheraGPS {
-
     private String name;
     private String species;
     private int weight;
@@ -17,7 +16,6 @@ public class Panthera extends PantheraGPS {
      * Constructor for Panthera.
      * Initializes the name, species, and assigns a random weight between 10 and 600
      * pounds.
-     * Also initializes Random instance for generating random speed values.
      */
     public Panthera(String name, String species) {
         super(name);
@@ -41,30 +39,20 @@ public class Panthera extends PantheraGPS {
         return speedRandom.nextFloat() * maxSpeed;
     }
 
-    /*
-     * Getter for the panthera's name.
-     */
     public String name() {
         return name;
     }
 
-    /*
-     * Getter for the species of the panthera.
-     */
     public String species() {
         return species;
     }
 
-    /*
-     * Getter for the weight of the panthera.
-     */
     public int weight() {
         return weight;
     }
 
     /*
-     * Provides a JSON-formatted string representation of the panthera's details,
-     * including name, species, longitude, latitude, weight, and speed.
+     * Provides a JSON-formatted string representation of the panthera's details.
      */
     @Override
     public String toString() {
