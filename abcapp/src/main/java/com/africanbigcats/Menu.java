@@ -2,13 +2,25 @@ package com.africanbigcats;
 
 import java.util.*;
 
+/*
+ * The Menu class provides a text-based interface for managing African big cats.
+ * It supports various commands such as creating, listing, finding, deleting cats, 
+ * and generating risk and warning reports.
+ */
 public class Menu {
     private Scanner input;
 
+    /*
+     * Constructor for Menu.
+     * Initializes the Scanner for user input.
+     */
     public Menu() {
         this.input = new Scanner(System.in);
     }
 
+    /*
+     * Prints the main menu options.
+     */
     public void print() {
         printLine();
         System.out.println("African Big Cats App");
@@ -23,19 +35,32 @@ public class Menu {
         printLine();
     }
 
+    /*
+     * Prints a line separator.
+     */
     private static void printLine() {
         System.out.println("----------------------------------------------------------");
     }
 
+    /*
+     * Prints a menu command with its description.
+     */
     private static void printCommand(Character command, String desc) {
         System.out.printf("%s\t%s\n", command, desc);
     }
 
+    /*
+     * Reads a command from the user.
+     * Returns the first character of the input as a command.
+     */
     public Character getCommand() {
         String rawInput = input.nextLine();
         return (rawInput.length() > 0) ? rawInput.toLowerCase().charAt(0) : '_';
     }
 
+    /*
+     * Executes the command based on the user's choice.
+     */
     public Boolean executeCommand(Character command, LinkedList<Panthera> catList) {
         switch (command) {
             case 'c':
@@ -66,12 +91,18 @@ public class Menu {
         return true;
     }
 
+    /*
+     * Updates the positions of all cats in the list.
+     */
     public void update(LinkedList<Panthera> catList) {
         for (Panthera cat : catList) {
             cat.move();
         }
     }
 
+    /*
+     * Quits the application and closes the Scanner.
+     */
     private void executeQuit() {
         input.close();
         System.out.println();
@@ -81,6 +112,11 @@ public class Menu {
         System.out.println();
     }
 
+    /*
+     * Prompts user to select a cat species and creates the appropriate type of
+     * Panthera.
+     * Returns the created Panthera object.
+     */
     public Panthera getNewCat(String name) {
         System.out.print("Select cat species (Tiger, Lion, Jaguar): ");
         String species = input.nextLine().trim().toLowerCase();
@@ -98,6 +134,9 @@ public class Menu {
         }
     }
 
+    /*
+     * Creates a new cat with a unique name and adds it to the list.
+     */
     public void executeCreate(LinkedList<Panthera> catList) {
         System.out.print("Enter a name for the big cat to create: ");
         String name = input.nextLine().trim();
@@ -112,6 +151,9 @@ public class Menu {
         System.out.println("Created cat: " + cat);
     }
 
+    /*
+     * Lists all big cats in the list.
+     */
     public void executeList(LinkedList<Panthera> catList) {
         System.out.println();
         printLine();
@@ -127,6 +169,9 @@ public class Menu {
         System.out.println();
     }
 
+    /*
+     * Finds and prints all cats matching the user's input.
+     */
     private void executeFind(LinkedList<Panthera> catList) {
         System.out.print("Enter name or part of name to find: ");
         String namePart = input.nextLine().trim().toLowerCase();
@@ -136,6 +181,9 @@ public class Menu {
                 .forEach(System.out::println);
     }
 
+    /*
+     * Deletes a cat by name from the list.
+     */
     private void executeDelete(LinkedList<Panthera> catList) {
         System.out.print("Enter the name of the cat to delete: ");
         String name = input.nextLine().trim();
@@ -152,7 +200,9 @@ public class Menu {
         }
     }
 
-    // Risk report: Calculate distance between two cats
+    /*
+     * Calculates and prints the distance between two specified cats.
+     */
     public void executeRiskReport(LinkedList<Panthera> catList) {
         System.out.print("Enter the name of the first cat: ");
         String name1 = input.nextLine().trim();
@@ -171,7 +221,9 @@ public class Menu {
         }
     }
 
-    // Warning report: Find the closest cat to a given location
+    /*
+     * Finds and prints the closest cat to the user's specified location.
+     */
     public void executeWarningReport(LinkedList<Panthera> catList) {
         System.out.print("Enter your longitude: ");
         float userLongitude = Float.parseFloat(input.nextLine());
