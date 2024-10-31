@@ -213,8 +213,7 @@ public class Menu {
         Panthera cat2 = catList.stream().filter(cat -> cat.name().equalsIgnoreCase(name2)).findFirst().orElse(null);
 
         if (cat1 != null && cat2 != null) {
-            double distance = Math.sqrt(
-                    Math.pow(cat1.longitude() - cat2.longitude(), 2) + Math.pow(cat1.latitude() - cat2.latitude(), 2));
+            double distance = calculateDistance(cat1, cat2);
             System.out.println("Distance between " + name1 + " and " + name2 + " is " + distance);
         } else {
             System.out.println("One or both cats not found.");
@@ -230,15 +229,30 @@ public class Menu {
         System.out.print("Enter your latitude: ");
         float userLatitude = Float.parseFloat(input.nextLine());
 
-        Panthera closestCat = catList.stream()
-                .min(Comparator.comparingDouble(cat -> Math.sqrt(
-                        Math.pow(cat.longitude() - userLongitude, 2) + Math.pow(cat.latitude() - userLatitude, 2))))
-                .orElse(null);
+        Panthera closestCat = findClosestCat(userLongitude, userLatitude, catList);
 
         if (closestCat != null) {
             System.out.println("Closest cat to your location: " + closestCat);
         } else {
             System.out.println("No cats available.");
         }
+    }
+
+    /*
+     * Helper method to calculate the distance between two Panthera objects.
+     */
+    private double calculateDistance(Panthera cat1, Panthera cat2) {
+        return Math.sqrt(
+                Math.pow(cat1.longitude() - cat2.longitude(), 2) + Math.pow(cat1.latitude() - cat2.latitude(), 2));
+    }
+
+    /*
+     * Helper method to find the closest cat to a given location.
+     */
+    private Panthera findClosestCat(float userLongitude, float userLatitude, LinkedList<Panthera> catList) {
+        return catList.stream()
+                .min(Comparator.comparingDouble(cat -> Math.sqrt(
+                        Math.pow(cat.longitude() - userLongitude, 2) + Math.pow(cat.latitude() - userLatitude, 2))))
+                .orElse(null);
     }
 }
